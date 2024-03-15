@@ -59,7 +59,7 @@
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\YiYun.Bs\YiYun.Bs.csproj">
-      <Project>{1EB9EDD0-8BCB-4620-B17F-BD2C50C01A25}</Project>
+      <Project>{1eb9edd0-8bcb-4620-b17f-bd2c50c01a25}</Project>
       <Name>YiYun.Bs</Name>
     </ProjectReference>
     <ProjectReference Include="..\YiYun.Entity\YiYun.Entity.csproj">

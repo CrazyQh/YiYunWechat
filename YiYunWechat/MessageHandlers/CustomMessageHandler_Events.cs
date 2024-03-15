@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Containers;
-using System.IO;
 using YiYunWeChat.Auth;
 using YiYun.Entity;
 using YiYun.Bs;
 using Common;
-using PMC.Bs;
 
 namespace LBDC.WeChat.MessageHandlers
 {

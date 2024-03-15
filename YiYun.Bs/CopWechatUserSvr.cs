@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using Common;
+using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Common;
+using System.Data.SqlClient;
 using YiYun.Data;
 using YiYun.Entity;
 
-namespace PMC.Bs
+namespace YiYun.Bs
 {
     public class CopWechatUserSvr
     {

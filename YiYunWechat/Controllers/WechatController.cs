@@ -48,7 +48,7 @@ namespace YiYunWeChat.Controllers
                 var weixinResult = new WeixinResult(messageHandler);
                 return weixinResult;//v0.8+ 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 #region 异常处理
                 return Content("");
