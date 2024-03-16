@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "业主绑定";
+}
+<head>
+    <link href="~/Content/jqweui/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/jquery-weui.min.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/weui.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/weui.min.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/ydui.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jqweui/zepto.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.1.4/weui.min.js"></script>
+    <script src="~/Scripts/jqweui/ydui.js"></script>
+</head>
+<div style="text-align:center;margin: 10px 0px;">
+    <img src="~/Images/register.jpg" style="width:90%" />
+</div>
+<form>
+    <div class="weui-form">
+        <div class="weui-form__text-area">
+            <h2 class="weui-form__title">业主绑定</h2>
+        </div>
+        <div class="weui-form__control-area">
+            <div class="weui-cells__group weui-cells__group_form">
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell weui-cell_access" id="selectVillage">
+                        <div class="weui-cell__hd" style="font-size:12px"><label class="weui-label">住宅选择</label></div>
+                        <div class="weui-cell__bd" style="font-size:12px">
+                            <input id="HouseCode" class="weui-input" contenteditable="false" />
+                        </div>
+                    </div>
+                    <div class="weui-cell" style="font-size:12px">
+                        <div class="weui-cell__hd"><label class="weui-label">联系电话</label></div>
+                        <div class="weui-cell__bd">
+                            <input id="HouseTel" class="weui-input" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div hidden="hidden">
+            <input id="HouseID" class="weui-input" />
+        </div>
+        <div class="weui-form__opr-area">
+            <a class="weui-btn weui-btn_primary" href="javascript:fun_register.onSubmit()">提交</a>
+        </div>
+        <script>
+
+            !function () {
+
+                var $target = $('#HouseCode');
+
+                $target.citySelect();
+
+                $target.on('click', function (event) {
+                    event.stopPropagation();
+                    $target.citySelect('open');
+                });
+
+            }();
+        </script>
+        <div class="m-cityselect">
+            <div class="cityselect-header">        <p class="cityselect-title" style="font-size:14px!important;">住宅信息</p>        <div class="cityselect-nav" style="font-size:14px!important;">            <a href="javascript:;" class=""></a>            <a href="javascript:;"></a>            <a href="javascript:;"></a>        </div>    </div>    <ul class="cityselect-content">        <li class="cityselect-item">            <div class="cityselect-item-box"></div>        </li>        <li class="cityselect-item">            <div class="cityselect-item-box"></div>        </li>        <li class="cityselect-item">            <div class="cityselect-item-box"></div>        </li>    </ul>
+        </div><div class="m-cityselect">    <div class="cityselect-header">        <p class="cityselect-title">住宅信息</p>        <div class="cityselect-nav">            <a href="javascript:;"></a>            <a href="javascript:;"></a>            <a href="javascript:;"></a>        </div>    </div>    <ul class="cityselect-content">        <li class="cityselect-item">            <div class="cityselect-item-box"></div>        </li>        <li class="cityselect-item">            <div class="cityselect-item-box"></div>        </li>        <li class="cityselect-item">            <div class="cityselect-item-box"></div>        </li>    </ul></div>
+
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    var fun_register = {
+
+        onSubmit: function () {
+
+            var teleNo = $('#HouseTel').val();
+            var houseid = $('#HouseID').val();
+            if (!houseid) {
+                $.toptip('请选择住宅');
+                return false;
+            }
+            if (!teleNo || !/1[3|4|5|7|8|9]\d{9}/.test(teleNo)) {
+                $.toptip('请输入正确的手机号');
+                return false;
+            }
+
+
+            $.showLoading("提交数据中");
+            $.ajax({
+                url: "@Url.Action("OwnerRegister", "Owner")",
+                type: 'post',
+                data: { houseid: $("#HouseID").val(), housetel: $("#HouseTel").val() },
+                success: function (result) {
+                    $.hideLoading();
+                    if (result.statusCode == "200") {
+                        $.toast("绑定成功", function () {
+                            console.log('close');
+                            window.location.href = "/Owner/Index";
+                        });
+                    }
+                    if (result.statusCode == "300") {
+                        $.toast(result.message, "forbidden");
+                    }
+
+                }
+            });
+        },
+        registerCallback: function () {
+
+        }
+    }
+</script>

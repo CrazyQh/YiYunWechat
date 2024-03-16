@@ -1,10 +1,5 @@
 ﻿using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities.Menu;
-using Senparc.Weixin.MP.TenPayLibV3;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using YiYun.Bs;
 using YiYunWeChat.Auth;
@@ -23,11 +18,11 @@ namespace YiYunWechat.Controllers
 
             #region 二级菜单
             var button11 = new SingleViewButton();
-            button11.url = "http://www.baidu.com";
+            button11.url = ConfigManager.DefaultContent;
             button11.name = "业主必读";
 
             var button12 = new SingleViewButton();
-            button12.url = "http://www.baidu.com";
+            button12.url = "http://gms.yiyuninfo.com/Notice";
             button12.name = "小区公告";
 
             var button13 = new SingleViewButton();
@@ -39,7 +34,7 @@ namespace YiYunWechat.Controllers
             button14.name = "历史缴费";
 
             var button21 = new SingleViewButton();
-            button21.url = "http://www.baidu.com";
+            button21.url = "http://www.baidu.com"; 
             button21.name = "社区团购";
 
             var button22 = new SingleViewButton();
@@ -47,11 +42,11 @@ namespace YiYunWechat.Controllers
             button22.name = "报修处理";
 
             var button31 = new SingleViewButton();
-            button31.url = "http://www.baidu.com";
+            button31.url = "http://gms.yiyuninfo.com/Owner";
             button31.name = "我的信息";
 
             var button32 = new SingleViewButton();
-            button32.url = "http://www.baidu.com";
+            button32.url = "http://gms.yiyuninfo.com/Owner/OwnerRegister";
             button32.name = "房屋绑定";
             #endregion
 

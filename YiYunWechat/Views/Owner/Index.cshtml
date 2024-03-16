@@ -1,0 +1,90 @@
+﻿
+@{
+    Layout = null;
+}
+@using YiYun.Entity
+
+@model List<House>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>业主中心</title>
+    <link href="~/Content/jqweui/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/jquery-weui.min.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/weui.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/weui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jqweui/jquery-weui.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.validate.js" type="text/javascript"></script>
+    <script src="~/Scripts/MyWechat.validate.js"></script>
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js" type="text/javascript" charset="utf-8"></script>
+    <!--引入微信的两个js-->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <!--weui.min.js有版本之分，在低版本的js中有些功能不完善，在高版本会支持-->
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="http://jqweui.com/dist/js/jquery-weui.js"></script>
+</head>
+<body>
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">尊敬的用户：@Model[0].HouseOwner</h4>
+                <p class="weui-media-box__desc">您当前一共可管理 @Model.Count 户住宅,以下是住宅列表</p>
+            </div>
+        </div>
+    </div>
+    <ul>
+        @foreach (var i in Model)
+        {
+            <li>
+                <div class="weui-form-preview">
+                    <div class="weui-form-preview__bd">
+                        <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">所属小区</label>
+                            <span class="weui-form-preview__value">@i.VillageName</span>
+                        </div>
+                        <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">区域</label>
+                            <span class="weui-form-preview__value">@i.AreaName</span>
+                        </div>
+                        <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">楼宇</label>
+                            <span class="weui-form-preview__value">@i.FloorName</span>
+                        </div>
+                        <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">单元</label>
+                            <span class="weui-form-preview__value">@i.UnitName</span>
+                        </div>
+                        <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">房号</label>
+                            <span class="weui-form-preview__value">@i.DoorNo</span>
+                        </div>
+                    </div>
+                    <div class="weui-form-preview__ft">
+                        <a onclick="readzd(this.id)" class="weui-dialog__btn weui-dialog__btn_primary" style="text-align:center" id="@i.ID">账单查询</a>
+                        <a onclick="readjf(this.id)" class="weui-dialog__btn weui-dialog__btn_primary" style="text-align:center" id="@i.ID">缴费查询</a>
+                        <a onclick="Repair(this.id)" class="weui-dialog__btn weui-dialog__btn_primary" style="text-align:center" id="@i.VillageID">报修处理</a>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+    <script>
+        function readzd(id) {
+            var householdid = id
+            window.location.href = "/Bill/ReadZDMXByID?householdid=" + householdid + "";
+        }
+        function readjf(id) {
+            var householdid = id
+            window.location.href = "/Pay/ReadJFMXByID?householdid=" + householdid + "";
+        }
+        function Repair(id) {
+            var villageid = id
+            window.location.href = "/Owner/Repair?villageid=" + villageid + "";
+        }
+    </script>
+</body>
+</html>

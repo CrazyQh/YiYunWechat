@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CopAreaSvr.cs" />
+    <Compile Include="CopFloorSvr.cs" />
+    <Compile Include="CopHouseSvr.cs" />
+    <Compile Include="CopNoticeSvr.cs" />
+    <Compile Include="CopUnitSvr.cs" />
+    <Compile Include="CopVillageSvr.cs" />
     <Compile Include="CopWechatInfoSvr.cs" />
     <Compile Include="CopWechatTokenSvr.cs" />
     <Compile Include="CopWechatUserSvr.cs" />
