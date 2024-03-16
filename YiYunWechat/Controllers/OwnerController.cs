@@ -196,5 +196,11 @@ namespace YiYunWechat.Controllers
             sbl.Append("]");
             return sbl.ToString();
         }
+
+        [OAuth(Redirect = "Owner/Repair", Type = "snsapi_base")]
+        public ActionResult Repair(string VillageID)
+        {
+            return View();
+        }
     }
 }

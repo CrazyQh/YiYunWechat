@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+@using YiYun.Entity
+
+@model List<Notice>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>公告列表</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link href="~/Content/jqweui/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/jquery-weui.min.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/weui.css" rel="stylesheet" />
+    <link href="~/Content/jqweui/weui.min.css" rel="stylesheet" />
+    <style>
+
+        .hint-val {
+            background: #5a87cc;
+            /*padding:3px 8px;*/
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="weui-cells__title">公告列表</div>
+    @if (Model != null)
+    {
+        <div class="weui-cells">
+            @foreach (var i in Model)
+            {
+                <a class="weui-cell  weui-cell_access" href="~/Notice/NoticeMX?TaskID=@i.TaskID">
+                    <span class="weui-cell__bd">
+                        <span style="color:deepskyblue;text-decoration:underline">@i.NoticeTitle</span>
+                        <div class="weui-cell__desc" style="font-size:12px;text-align:right">@i.CreateName  @i.CreateDate</div>
+                    </span>
+                    <span class="weui-cell__ft">
+                    </span>
+                </a>
+            }
+        </div>
+    }
+    </body>
+</html>

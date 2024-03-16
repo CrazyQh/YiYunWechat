@@ -335,12 +335,13 @@
     <Content Include="Views\Message\Warn.cshtml" />
     <Content Include="Views\Owner\Index.cshtml" />
     <Content Include="Views\Owner\OwnerRegister.cshtml" />
+    <Content Include="Views\Notice\Index.cshtml" />
+    <Content Include="Views\Notice\NoticeMX.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Menu\" />
-    <Folder Include="Views\Notice\" />
     <Folder Include="Views\WeChatOAuth\" />
     <Folder Include="Views\Wechat\" />
   </ItemGroup>

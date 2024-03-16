@@ -25,6 +25,7 @@ namespace YiYunWechat.Controllers
             else
             {
                 string openid = ConfigManager.OpenId;
+                //string openid = "oHOZG6gvm0LGwUuziRyahinm4s8s";
                 List<Village> _xqmx = CopVillageSvr.GetVillageByOpenID(openid);
                 if (_xqmx != null && _xqmx.Count == 1)
                 {
@@ -44,6 +45,12 @@ namespace YiYunWechat.Controllers
                     return Redirect("/Message/Warn?message=该小区暂未开通在线公告！");
                 }
             }
+        }
+
+        public ActionResult NoticeMX(string TaskID)
+        {
+            Notice _adnt = CopNoticeSvr.GetNoticeMX(TaskID);
+            return View(_adnt);
         }
     }
 }
