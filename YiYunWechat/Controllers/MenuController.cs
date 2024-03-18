@@ -22,7 +22,7 @@ namespace YiYunWechat.Controllers
             button11.name = "业主必读";
 
             var button12 = new SingleViewButton();
-            button12.url = "http://gms.yiyuninfo.com/Notice";
+            button12.url = ConfigManager.WebSiteUrl + "Notice";
             button12.name = "小区公告";
 
             var button13 = new SingleViewButton();
@@ -42,11 +42,11 @@ namespace YiYunWechat.Controllers
             button22.name = "报修处理";
 
             var button31 = new SingleViewButton();
-            button31.url = "http://gms.yiyuninfo.com/Owner";
+            button31.url = ConfigManager.WebSiteUrl + "Owner";
             button31.name = "我的信息";
 
             var button32 = new SingleViewButton();
-            button32.url = "http://gms.yiyuninfo.com/Owner/OwnerRegister";
+            button32.url = ConfigManager.WebSiteUrl + "Owner/OwnerRegister";
             button32.name = "房屋绑定";
             #endregion
 

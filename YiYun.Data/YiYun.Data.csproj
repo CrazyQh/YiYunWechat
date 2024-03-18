@@ -45,6 +45,7 @@
     <Compile Include="FloorSvr.cs" />
     <Compile Include="HouseSvr.cs" />
     <Compile Include="NoticeSvr.cs" />
+    <Compile Include="RepairSvr.cs" />
     <Compile Include="UnitSvr.cs" />
     <Compile Include="VillageSvr.cs" />
     <Compile Include="WechatInfoSvr.cs" />

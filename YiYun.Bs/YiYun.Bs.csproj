@@ -45,6 +45,7 @@
     <Compile Include="CopFloorSvr.cs" />
     <Compile Include="CopHouseSvr.cs" />
     <Compile Include="CopNoticeSvr.cs" />
+    <Compile Include="CopRepairSvr.cs" />
     <Compile Include="CopUnitSvr.cs" />
     <Compile Include="CopVillageSvr.cs" />
     <Compile Include="CopWechatInfoSvr.cs" />

@@ -1,0 +1,281 @@
+﻿
+@{
+    ViewBag.Title = "报修处理";
+}
+@using YiYun.Entity
+
+@model List<Repair>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <script src="~/Scripts/jquery-2.1.1.js"></script>
+    <link href="~/Content/jqweui/weui.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/jqweui/jquery-weui.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script src="~/Scripts/jqweui/jquery-weui.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.validate.js" type="text/javascript"></script>
+    <script src="~/Scripts/MyWechat.validate.js"></script>
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js" type="text/javascript" charset="utf-8"></script>
+    <!--引入微信的两个js-->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <!--weui.min.js有版本之分，在低版本的js中有些功能不完善，在高版本会支持-->
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.1.4/weui.min.js"></script>
+    <script src="~/Scripts/jqweui/jquery-weui.js"></script>
+</head>
+<form enctype="multipart/form-data">
+    <div class="weui-tab">
+        <div class="weui-navbar">
+            <div class="weui-navbar__item weui-bar__item_on" id="nav1">
+                报修处理
+            </div>
+            <div class="weui-navbar__item" id="nav2">
+                报修记录
+            </div>
+        </div>
+        <div class="weui-tab__panel">
+            <div id="tab1" class="weui_tab_bd_item weui_tab_bd_item_active">
+                <div class="weui-form">
+                    <div class="weui-cell" id="HousePicker">
+                        <div class="weui-cell__hd" style="width:25%"><label class="weui-label">报修房号</label></div>
+                        <div class="weui-cell__bd" style="width:75%">
+                            <input id="HouseName" class="weui-input" contenteditable="false" readonly="readonly" placeholder="请选择您的房号" value="" />
+                            <input id="HouseID" class="weui-input" contenteditable="false" readonly="readonly" value="" hidden="hidden" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd" style="height:100px;width:25%">报修内容</div>
+                        <div class="weui-cell__bd">
+                            <textarea id="Remarks" class="weui-input" contenteditable="false" style="height:100px;width:75%" placeholder="请描述您所遇到的问题"></textarea>
+                            <div class="weui-textarea-counter"><span>0</span>/500</div>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd" style="width:25%">联系方式</div>
+                        <div class="weui-cell__bd" style="width:75%">
+                            <input id="PhoneNo" class="weui-input">
+                        </div>
+                    </div>
+                    <div class="weui-gallery" id="gallery">
+                        <span class="weui-gallery__img" id="galleryImg"></span>
+                        <div class="weui-gallery__opr">
+                            <a href="javascript:" class="weui-gallery__del">
+                                <i class="weui-icon-delete weui-icon_gallery-delete"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <div class="weui-uploader">
+                                <div class="weui-uploader__hd">
+                                    <p class="weui-uploader__title">图片上传</p>
+                                    @*<div class="weui-uploader__info">0/2</div>*@
+                                </div>
+                                <div class="weui-uploader__bd">
+                                    <ul class="weui-uploader__files" id="uploaderFiles">
+                                        @*<li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+                                            <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+                                            <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+                                            <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                                <div class="weui-uploader__file-content">
+                                                    <i class="weui-icon-warn"></i>
+                                                </div>
+                                            </li>
+                                            <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                                <div class="weui-uploader__file-content">50%</div>
+                                            </li>*@
+                                    </ul>
+                                    <div class="weui-uploader__input-box">
+                                        <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-form__opr-area">
+                        <a class="weui-btn weui-btn_primary" href="javascript:fun_register.onSubmit()">提交</a>
+                    </div>
+                </div>
+            </div>
+            <div id="tab2" class="weui_tab_bd_item" hidden="hidden">
+                @if (Model != null)
+                {
+                    <div class="weui-panel weui-panel_access">
+                        <div class="weui-panel__hd" style="font-size:12px">报修记录</div>
+                    </div>
+                    <div class="weui-row" style="font-size:12px">
+                        <div class="weui-col-25">报修日期</div>
+                        <div class="weui-col-50">报修内容</div>
+                        <div class="weui-col-25">报修进度</div>
+                    </div>
+                    <ul>
+                        @foreach (var i in Model)
+                        {
+                            <li>
+                                <div class="weui-row" style="font-size:12px">
+                                    <div class="weui-col-25">@i.CreateDate</div>
+                                    <div class="weui-col-50">@i.ReparirContent</div>
+                                    <div class="weui-col-25">@i.DealState</div>
+
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+
+    $(function () {
+        var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)" id="#value#"></li>',
+            $gallery = $("#gallery"),
+            $galleryImg = $("#galleryImg"),
+            $uploaderInput = $("#uploaderInput"),
+            $uploaderFiles = $("#uploaderFiles")
+            ;
+
+        $uploaderInput.on("change", function (e) {
+            var src,
+                url = window.URL || window.webkitURL || window.mozURL,
+                files = e.target.files;
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+                var formData = new FormData();
+                formData.append('file', file); // 固定格式
+                $.ajax({
+                url: "@Url.Action("RepairUpload", "Repair")",
+                type: 'post',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    if (result.statusCode == "200") {
+                        console.log(result.message);
+                        $uploaderFiles.append($(tmpl.replace('#value#', result.message).replace('#url#', src)));
+                    }
+                    if (result.statusCode == "300") {
+                        $.toast(result.message, "forbidden");
+                    }
+                }
+                });
+
+            }
+        });
+        var index;
+        $uploaderFiles.on("click", "li", function () {
+            index = $(this).index();
+            $galleryImg.attr("style", this.getAttribute("style"));
+            $gallery.fadeIn(100);
+        });
+        $gallery.on("click", function () {
+            $gallery.fadeOut(100);
+        });
+        $(".weui-gallery__del").click(function () { //这部分刚才放错地方了，放到$(function(){})外面去了
+            $uploaderFiles.find("li").eq(index).remove();
+        });
+    });
+
+    $("#HousePicker").on('click', function () {
+        var HouseMX = []
+        $.ajax({
+            url: "@Url.Action("GetRepairHouse", "Repair")",
+            type: 'Post',
+            dataType: 'json',
+            success: function (data) {
+                for (var i = 0; i < data.cardmx.length; i++) {
+                    var v_data = {
+                        label: data.cardmx[i].HouseCode,
+                        value: data.cardmx[i].ID
+                    }
+                    HouseMX.push(v_data);
+                }
+                    weui.picker(HouseMX, {
+                        onChange: function (result) {
+                            $('#HouseName').val(result[0].label);
+                            $('#HouseID').val(result[0].value);
+                        },
+                        onConfirm: function (result) {
+                            $('#HouseName').val(result[0].label);
+                            $('#HouseID').val(result[0].value);
+                        }
+                    });
+            }
+        });
+    });
+
+    $(function () {
+        $('#nav1').on('click', function () {
+            $('#tab2').hide()
+            $('#tab1').show()
+            $('#nav2').removeClass('weui-bar__item_on')
+            $('#nav1').addClass('weui-bar__item_on')
+        });
+        $('#nav2').on('click', function () {
+            $('#tab1').hide()
+            $('#tab2').show()
+            $('#nav1').removeClass('weui-bar__item_on')
+            $('#nav2').addClass('weui-bar__item_on')
+        });
+    });
+
+     var fun_register = {
+
+         onSubmit: function () {
+             var HouseID = $('#HouseID').val();
+             var Remarks = $('#Remarks').val();
+             var PhoneNo = $('#PhoneNo').val();
+             var files = [];
+             var filebox = $(".weui-uploader__file");//.css('backgroundImage')
+             filebox.each(function () {
+                 var _url = $(this).attr('id');
+                 files.push(_url);
+             })
+             if (!HouseID) {
+                alert('请选择住宅');
+                return false;
+             }
+             if (!Remarks) {
+                 alert('请描述您所遇到的问题');
+                 return false;
+             }
+             if (!Remarks) {
+                 alert('请填写联系方式');
+                 return false;
+             }
+
+            $.showLoading("提交数据中");
+            $.ajax({
+                url: "@Url.Action("RepairMX", "Repair")",
+                type: 'post',
+                data: { houseid: HouseID, remarks: Remarks, PhoneNo: PhoneNo, files: files.toString() },
+                success: function (result) {
+                    $.hideLoading();
+                    if (result.statusCode == "200") {
+                        $.toast("提交成功", function () {
+                            window.location.reload();
+                            $('#tab1').reload()
+                            $('#tab2').reload()
+                            $('#nav2').click()
+                        });
+                        //$('#nav2').click()
+                    }
+                    if (result.statusCode == "300") {
+                        $.toast(result.message, "forbidden");
+                    }
+
+                }
+            });
+        },
+        registerCallback: function () {
+
+        }
+    }
+
+</script>

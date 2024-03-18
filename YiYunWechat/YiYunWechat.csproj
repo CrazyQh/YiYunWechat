@@ -127,6 +127,7 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
+    <Compile Include="Controllers\RepairController.cs" />
     <Compile Include="Controllers\WechatController.cs" />
     <Compile Include="Controllers\WeChatOAuthController.cs" />
     <Compile Include="Global.asax.cs">
@@ -337,6 +338,7 @@
     <Content Include="Views\Owner\OwnerRegister.cshtml" />
     <Content Include="Views\Notice\Index.cshtml" />
     <Content Include="Views\Notice\NoticeMX.cshtml" />
+    <Content Include="Views\Repair\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

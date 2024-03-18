@@ -46,6 +46,7 @@
     <Compile Include="Floor.cs" />
     <Compile Include="House.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repair.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Village.cs" />
     <Compile Include="WechatInfo.cs" />

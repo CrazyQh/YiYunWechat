@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.IO;
+using System.Configuration;
 
 namespace Common
 {
@@ -34,7 +35,7 @@ namespace Common
         /// <param name="file">HttpPostedFileBase</param>
         /// <param name="path">路径</param>
         /// <returns>路径字符串</returns>
-        public static int upload(HttpPostedFileBase file, string path, out string _resms)
+        public static int upload(HttpPostedFileBase file, out string _resms)
         {
             _resms = "";
             int ir = 1;
@@ -48,9 +49,8 @@ namespace Common
                 }
                 if ((file != null) && (file.ContentLength > 0))
                 {
-                    //string filename = AppDomain.CurrentDomain.BaseDirectory + path + str;
-                    string filename = "C:\\Program Files (x86)\\FlowPortal BPM 6.x\\WEB\\TempFiles\\" + str;
-                    _resms = "C:\\Program Files (x86)\\FlowPortal BPM 6.x\\WEB\\TempFiles\\" + str;
+                    string filename = System.Web.Configuration.WebConfigurationManager.AppSettings["BPMFilePath"].ToString() + str;
+                    _resms = filename;
                     file.SaveAs(filename);
                 }
                 return ir;
