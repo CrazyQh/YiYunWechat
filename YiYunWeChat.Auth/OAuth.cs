@@ -1,7 +1,5 @@
 ﻿using System.Text;
 using System.Web.Mvc;
-using YiYun.Bs;
-using YiYun.Entity;
 
 namespace YiYunWeChat.Auth
 {
@@ -22,9 +20,7 @@ namespace YiYunWeChat.Auth
             {
                 string Redirect_Uri = System.Web.HttpUtility.UrlEncode(ConfigManager.WebSiteUrl
                     + "WechatOAuth/GetCodeByOAtuo", Encoding.UTF8);
-                string AccountId = ConfigManager.AccountId;
-                WechatInfo account = CopWechatInfoSvr.GetAccount(AccountId);
-                string Appid = account.AppID;
+                string Appid = ConfigManager.APPIdS;
                 string OAutoUrl = WechatHelper.OAutoUrl
                     .Replace("APPID", Appid)
                     .Replace("REDIRECT_URI", Redirect_Uri)

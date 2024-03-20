@@ -44,6 +44,9 @@
     <Compile Include="CopAreaSvr.cs" />
     <Compile Include="CopFloorSvr.cs" />
     <Compile Include="CopHouseSvr.cs" />
+    <Compile Include="CopWXPaymentSvr.cs" />
+    <Compile Include="CopZDMXSvr.cs" />
+    <Compile Include="CopJFMXSvr.cs" />
     <Compile Include="CopNoticeSvr.cs" />
     <Compile Include="CopRepairSvr.cs" />
     <Compile Include="CopUnitSvr.cs" />
@@ -73,6 +76,10 @@
     <ProjectReference Include="..\YiYun.Entity\YiYun.Entity.csproj">
       <Project>{664D5E81-6D8A-4993-A89D-DC8876C40061}</Project>
       <Name>YiYun.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YiYunWeChat.Auth\YiYunWeChat.Auth.csproj">
+      <Project>{88fdb3bc-28ce-48e0-824a-8322baef5ca5}</Project>
+      <Name>YiYunWeChat.Auth</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

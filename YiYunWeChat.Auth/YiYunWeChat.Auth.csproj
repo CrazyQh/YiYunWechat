@@ -58,14 +58,6 @@
       <Project>{fae55435-985c-4d72-a076-a892b21dce82}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YiYun.Bs\YiYun.Bs.csproj">
-      <Project>{1eb9edd0-8bcb-4620-b17f-bd2c50c01a25}</Project>
-      <Name>YiYun.Bs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YiYun.Entity\YiYun.Entity.csproj">
-      <Project>{664D5E81-6D8A-4993-A89D-DC8876C40061}</Project>
-      <Name>YiYun.Entity</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

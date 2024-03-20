@@ -24,8 +24,8 @@
     <!--引入微信的两个js-->
     <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <!--weui.min.js有版本之分，在低版本的js中有些功能不完善，在高版本会支持-->
-    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
-    <script src="~/Scripts/jqweui/jquery-weui.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.1.4/weui.min.js"></script>
+    <script src="~/Scripts/jqweui/ydui.js"></script>
 </head>
 <body>
     <div class="weui-panel weui-panel_access">
@@ -75,11 +75,11 @@
     <script>
         function readzd(id) {
             var householdid = id
-            window.location.href = "/Bill/ReadZDMXByID?householdid=" + householdid + "";
+            window.location.href = "/Pay/ReadZDMXByHouseID?HouseID=" + householdid + "";
         }
         function readjf(id) {
             var householdid = id
-            window.location.href = "/Pay/ReadJFMXByID?householdid=" + householdid + "";
+            window.location.href = "/Pay/ReadJFMXByHouseID?HouseID=" + householdid + "";
         }
         function Repair(id) {
             var villageid = id

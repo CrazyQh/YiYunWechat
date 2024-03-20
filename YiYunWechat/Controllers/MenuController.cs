@@ -26,11 +26,11 @@ namespace YiYunWechat.Controllers
             button12.name = "小区公告";
 
             var button13 = new SingleViewButton();
-            button13.url = "http://www.baidu.com";
+            button13.url = ConfigManager.WebSiteUrl + "Pay/ReadZDMXByOpenID";
             button13.name = "账单查询";
 
             var button14 = new SingleViewButton();
-            button14.url = "http://www.baidu.com";
+            button14.url = ConfigManager.WebSiteUrl + "Pay/ReadJFMXByOpenID";
             button14.name = "历史缴费";
 
             var button21 = new SingleViewButton();
@@ -38,7 +38,7 @@ namespace YiYunWechat.Controllers
             button21.name = "社区团购";
 
             var button22 = new SingleViewButton();
-            button22.url = "http://www.baidu.com";
+            button22.url = ConfigManager.WebSiteUrl + "Repair";
             button22.name = "报修处理";
 
             var button31 = new SingleViewButton();

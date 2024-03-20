@@ -31,9 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LitJson, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +50,9 @@
     <Compile Include="Area.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="House.cs" />
+    <Compile Include="JFMX.cs" />
+    <Compile Include="PayClient.cs" />
+    <Compile Include="WXPayment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repair.cs" />
     <Compile Include="Unit.cs" />
@@ -53,6 +61,17 @@
     <Compile Include="Notice.cs" />
     <Compile Include="WechatToken.cs" />
     <Compile Include="WechatUser.cs" />
+    <Compile Include="ZDMX.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{fae55435-985c-4d72-a076-a892b21dce82}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
+      <Project>{1D815FBF-451C-4E23-939C-CB80172F445C}</Project>
+      <Name>Senparc.Weixin.MP</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
