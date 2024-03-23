@@ -44,6 +44,8 @@
     <Compile Include="CopAreaSvr.cs" />
     <Compile Include="CopFloorSvr.cs" />
     <Compile Include="CopHouseSvr.cs" />
+    <Compile Include="CopPaymentMXSvr.cs" />
+    <Compile Include="CopWechatMessageTaskSvr.cs" />
     <Compile Include="CopWXPaymentSvr.cs" />
     <Compile Include="CopZDMXSvr.cs" />
     <Compile Include="CopJFMXSvr.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="CopWechatTokenSvr.cs" />
     <Compile Include="CopWechatUserSvr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CopWechatTemplateSvr.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

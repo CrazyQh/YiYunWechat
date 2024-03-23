@@ -6,7 +6,7 @@ using YiYun.Entity;
 
 namespace YiYun.Data
 {
-    public class ZDMXSvr
+    public class PaymentMXSvr
     {
         #region private members _conn & _trans
         private SqlConnection _conn;
@@ -14,9 +14,9 @@ namespace YiYun.Data
         #endregion
 
         #region 构造函数
-        public ZDMXSvr()
+        public PaymentMXSvr()
         { }
-        public ZDMXSvr(SqlConnection conn, SqlTransaction trans)
+        public PaymentMXSvr(SqlConnection conn, SqlTransaction trans)
         {
             this._conn = conn;
             this._trans = trans;
@@ -24,28 +24,26 @@ namespace YiYun.Data
         #endregion
 
         /// <summary>
-        /// 根据房屋ID获取账单
+        /// 根据TaskID获取缴费单明细
         /// </summary>
-        /// <param name="_HouseID"></param>
+        /// <param name="_PayType"></param>
+        /// <param name="_TaskID"></param>
         /// <returns></returns>
-        public List<ZDMX> GetZDMXByHousID(string _HouseID)
+        public List<PaymentMX> GetPaymentMXByTaskID(string _PayType, string _TaskID)
         {
-            string sql = @" 
-                SELECT SoID,
-                       SoTaskID,
-                       YearMonth,
-                       SFProjectName,
-                       JSTypeT,
-                       Qty,
-                       Amount,
-                       WYJ,
-                       IsMustPay
-                FROM dbo.V_PMC_ZDMiddle
-                WHERE HouseID = @HouseID
-            ";
+            string sql = string.Empty;
+            if (_PayType == "WYJF")
+            {
+                sql = " SELECT YearMonth,ProjectName,Qty,YSAmount,SSAmount FROM dbo.PMC_PaymentMX WHERE TaskID = @TaskID ";
+            }
+            else if (_PayType == "WXJF")
+            {
+                sql = " SELECT YearMonth,ProjectName,Qty,YSAmount,SSAmount FROM dbo.PMC_WXPaymentMX WHERE ID = @TaskID ";
+            }
+            
             SqlParameter[] paras = new SqlParameter[]
             {
-                new SqlParameter("HouseID",_HouseID)
+                new SqlParameter("TaskID",_TaskID)
             };
             DataSet ds = new DataSet();
             if (_trans != null)
@@ -62,7 +60,7 @@ namespace YiYun.Data
             }
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                List<ZDMX> ls = ObHelper.GetList<ZDMX>(ds);
+                List<PaymentMX> ls = ObHelper.GetList<PaymentMX>(ds);
                 if (ls != null && ls.Count > 0)
                 {
                     return ls;
@@ -79,34 +77,18 @@ namespace YiYun.Data
         }
 
         /// <summary>
-        /// 根据房屋ID及账单ID获取账单
+        /// 根据TaskID获取退费单明细
         /// </summary>
-        /// <param name="_HouseID"></param>
-        /// <param name="_SoID"></param>
+        /// <param name="_PayType"></param>
+        /// <param name="_TaskID"></param>
         /// <returns></returns>
-        public List<ZDMX> GetZDMXByHouseSoID(string _HouseID,string _SoID)
+        public List<RefundMX> GetRefundMXByTaskID(string _TaskID)
         {
-            string sql = @" 
-                SELECT SoID,
-                       SoTaskID,
-                       YearMonth,
-                       SFProjectName,
-                       JSTypeT,
-                       Qty,
-                       Amount,
-                       ISNULL(WYJ, 0) WYJ,
-                       IsMustPay
-                FROM dbo.V_PMC_ZDMiddle
-                WHERE HouseID = @HouseID
-                      AND SoID IN
-                          (
-                              SELECT * FROM dbo.f_split2(@SoID, ',')
-                          )
-            ";
+            string sql = " SELECT YearMonth,ProjectName,Qty,SSAmount,RefundAmount FROM dbo.PMC_RefundMX WHERE TaskID = @TaskID ";
+
             SqlParameter[] paras = new SqlParameter[]
             {
-                new SqlParameter("HouseID",_HouseID),
-                new SqlParameter("SoID",_SoID)
+                new SqlParameter("TaskID",_TaskID)
             };
             DataSet ds = new DataSet();
             if (_trans != null)
@@ -123,7 +105,7 @@ namespace YiYun.Data
             }
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                List<ZDMX> ls = ObHelper.GetList<ZDMX>(ds);
+                List<RefundMX> ls = ObHelper.GetList<RefundMX>(ds);
                 if (ls != null && ls.Count > 0)
                 {
                     return ls;
@@ -138,6 +120,5 @@ namespace YiYun.Data
                 return null;
             }
         }
-
     }
 }

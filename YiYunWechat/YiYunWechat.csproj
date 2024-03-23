@@ -123,12 +123,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Controllers\RepairController.cs" />
+    <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\WechatController.cs" />
     <Compile Include="Controllers\WeChatOAuthController.cs" />
     <Compile Include="Global.asax.cs">
@@ -341,12 +343,16 @@
     <Content Include="Views\Notice\NoticeMX.cshtml" />
     <Content Include="Views\Repair\Index.cshtml" />
     <Content Include="Views\Pay\ReadJFMXByHouseID.cshtml" />
-    <Content Include="Views\Pay\ReadZDMXByHouseID.cshtml" />
+    <Content Include="Views\Bill\ReadZDMXByHouseID.cshtml" />
+    <Content Include="Views\Bill\ReadZDMXByTaskHouseID.cshtml" />
+    <Content Include="Views\Pay\ReadPaymentMXByTaskID.cshtml" />
+    <Content Include="Views\Pay\ReadRefundMXByTaskID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Menu\" />
+    <Folder Include="Views\Template\" />
     <Folder Include="Views\WeChatOAuth\" />
     <Folder Include="Views\Wechat\" />
   </ItemGroup>

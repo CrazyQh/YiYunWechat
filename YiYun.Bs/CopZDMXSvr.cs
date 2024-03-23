@@ -11,12 +11,23 @@ namespace YiYun.Bs
 {
     public class CopZDMXSvr
     {
+        /// <summary>
+        /// 根据房屋ID获取账单
+        /// </summary>
+        /// <param name="_HouseID"></param>
+        /// <returns></returns>
         public static List<ZDMX> GetZDMXByHousID(string _HouseID)
         {
             ZDMXSvr _mxSvr = new ZDMXSvr();
             return _mxSvr.GetZDMXByHousID(_HouseID);
         }
 
+        /// <summary>
+        /// 根据房屋ID及账单ID获取账单
+        /// </summary>
+        /// <param name="_HouseID"></param>
+        /// <param name="_SoID"></param>
+        /// <returns></returns>
         public static List<ZDMX> GetZDMXByHouseSoID(string _HouseID, string _SoID)
         {
             ZDMXSvr _mxSvr = new ZDMXSvr();

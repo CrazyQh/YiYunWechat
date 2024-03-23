@@ -1,12 +1,7 @@
 ﻿using Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YiYun.Entity;
 
 namespace YiYun.Data
 {
@@ -63,9 +58,14 @@ namespace YiYun.Data
             return ir;
         }
 
-        public WXPayment GetWXPaymentBySN(string _SBSN)
+        /// <summary>
+        /// 根据SBSN获取缴费单
+        /// </summary>
+        /// <param name="_SBSN"></param>
+        /// <returns></returns>
+        public int GetWXPaymentBySN(string _SBSN)
         {
-            string sql = " SELECT * FROM PMC_WXPayment WHERE JFFlag = 0 AND SN = '" + _SBSN + "'";
+            string sql = " SELECT COUNT(*) Qty FROM PMC_WXPayment WHERE JFFlag = 0 AND SN = '" + _SBSN + "'";
             DataSet ds = new DataSet();
             if (_trans != null)
             {
@@ -78,33 +78,15 @@ namespace YiYun.Data
             }
             else
             {
-                try
-                {
-                    ds = SqlHelper.Adapter(SqlHelper.CONN_STRING, CommandType.Text, sql, null);
-                }
-                catch (Exception e)
-                {
-
-                    LogWrite.WriteLog(e.ToString());
-                }
-
-
+                ds = SqlHelper.Adapter(SqlHelper.CONN_STRING, CommandType.Text, sql, null);
             }
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                List<WXPayment> ls = ObHelper.GetList<WXPayment>(ds);
-                if (ls != null && ls.Count > 0)
-                {
-                    return ls[0];
-                }
-                else
-                {
-                    return null;
-                }
+                return (int)ds.Tables[0].Rows[0]["Qty"];
             }
             else
             {
-                return null;
+                return 0;
             }
         }
 

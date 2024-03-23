@@ -174,6 +174,17 @@ namespace Senparc.Weixin.MP.Entities
         public MessageParameters keyword4 { get; set; }
         public MessageParameters keyword5 { get; set; }
         public MessageParameters remark { get; set; }
+        public MessageParameters thing12 { get; set; }
+        public MessageParameters thing14 { get; set; }
+        public MessageParameters time27 { get; set; }
+        public MessageParameters amount26 { get; set; }
+        public MessageParameters thing8 { get; set; }
+        public MessageParameters character_string13 { get; set; }
+        public MessageParameters amount6 { get; set; }
+        public MessageParameters character_string1 { get; set; }
+        public MessageParameters time4 { get; set; }
+        public MessageParameters amount3 { get; set; }
+
 
     }
     public class MessageParameters

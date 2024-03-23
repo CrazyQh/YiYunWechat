@@ -51,9 +51,12 @@
     <Compile Include="VillageSvr.cs" />
     <Compile Include="WechatInfoSvr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WechatMessageTaskSvr.cs" />
+    <Compile Include="WechatTemplateSvr.cs" />
     <Compile Include="WechatTokenSvr.cs" />
     <Compile Include="WechatUserSvr.cs" />
     <Compile Include="WXPaymentSvr.cs" />
+    <Compile Include="PaymentMXSvr.cs" />
     <Compile Include="ZDMXSvr.cs" />
   </ItemGroup>
   <ItemGroup>

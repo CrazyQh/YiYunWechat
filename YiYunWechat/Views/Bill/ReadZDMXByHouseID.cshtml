@@ -125,7 +125,7 @@
                 SoID.push(CheckBox[i].value);
             }
             $.ajax({
-                url: "@Url.Action("ZDJS", "Pay")",
+                url: "@Url.Action("ZDJS", "Bill")",
                 type: 'post',
                 dataType: "json",
                 data: { HouseID: @ViewBag.HouseID, SoID: SoID.toString() },

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using YiYun.Bs;
 using YiYun.Entity;
@@ -13,6 +12,12 @@ namespace YiYunWechat.Controllers
 {
     public class PayController : Controller
     {
+        /// <summary>
+        /// 物业账单支付
+        /// </summary>
+        /// <param name="HouseID"></param>
+        /// <param name="SoID"></param>
+        /// <returns></returns>
         public JsonResult WYPay(string HouseID, string SoID)
         {
             string statusCode = "200";
@@ -132,6 +137,11 @@ namespace YiYunWechat.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 根据房屋ID获取缴费记录
+        /// </summary>
+        /// <param name="HouseID"></param>
+        /// <returns></returns>
         [OAuth(Redirect = "Pay/ReadJFMXByHouseID", Type = "snsapi_base")]
         public ActionResult ReadJFMXByHouseID(string HouseID)
         {
@@ -148,6 +158,10 @@ namespace YiYunWechat.Controllers
             return Redirect("/Message/Warn?message=暂无更多缴费信息，请重新查询！");
         }
 
+        /// <summary>
+        /// 根据OpenID获取缴费记录
+        /// </summary>
+        /// <returns></returns>
         [OAuth(Redirect = "Pay/ReadJFMXByOpenID", Type = "snsapi_base")]
         public ActionResult ReadJFMXByOpenID()
         {
@@ -165,67 +179,61 @@ namespace YiYunWechat.Controllers
             return Redirect("/Owner/OwnerRegister");
         }
 
-        [OAuth(Redirect = "Pay/ReadZDMXByHouseID", Type = "snsapi_base")]
-        public ActionResult ReadZDMXByHouseID(string HouseID)
+        /// <summary>
+        /// 根据缴费单TaskID获取缴费明细
+        /// </summary>
+        /// <param name="PayType"></param>
+        /// <param name="TaskID"></param>
+        /// <returns></returns>
+        [OAuth(Redirect = "Pay/ReadPaymentMXByTaskID", Type = "snsapi_base")]
+        public ActionResult ReadPaymentMXByTaskID(string PayType, string TaskID)
         {
-            List<ZDMX> _lszdmx = CopZDMXSvr.GetZDMXByHousID(HouseID);
-            House _card = CopHouseSvr.GetHouseByID(HouseID);
-            ViewBag.HouseID = HouseID;
-            if (_card != null)
+            List<PaymentMX> _lsjfmx = CopPaymentMXSvr.GetPaymentMXByTaskID(PayType,TaskID);
+            if (_lsjfmx != null && _lsjfmx.Count > 0)
             {
-                ViewBag.PayFlag = _card.OnlinePay;
-            }
-            if (_lszdmx != null && _lszdmx.Count > 0)
-            {
-                return View(_lszdmx);
-            }
-            return Redirect("/Message/Warn?message=暂无更多缴费信息，请重新查询！");
-        }
-
-        [OAuth(Redirect = "Pay/ReadZDMXByOpenID", Type = "snsapi_base")]
-        public ActionResult ReadZDMXByOpenID()
-        {
-            string OpenID = ConfigManager.OpenId;
-            List<House> _housemx = CopHouseSvr.GetHouseByOpenID(OpenID);
-            if (_housemx != null && _housemx.Count == 1)
-            {
-                return Redirect("/Pay/ReadZDMXByHouseID?HouseID=" + _housemx[0].ID.ToString());
-            }
-
-            if (_housemx != null && _housemx.Count > 1)
-            {
-                return Redirect("/Owner");
-            }
-            return Redirect("/Owner/OwnerRegister");
-        }
-
-        [HttpPost]
-        public JsonResult ZDJS(string HouseID, string SoID)
-        {
-            string statusCode = "200";
-            string SFJE = string.Empty;
-            string WYJ = string.Empty;
-            try
-            {
-                House _card = CopHouseSvr.GetHouseByID(HouseID);
-                List<ZDMX> _zdmx = CopZDMXSvr.GetZDMXByHouseSoID(HouseID, SoID);
-                if (_zdmx == null)
+                for (int i = 0; i < _lsjfmx.Count; i++)
                 {
-                    statusCode = "300";
+                    float SSAmount = Convert.ToSingle(_lsjfmx[i].SSAmount);
+                    _lsjfmx[i].SSAmount = SSAmount.ToString();
+
+                    float YSAmount = Convert.ToSingle(_lsjfmx[i].YSAmount);
+                    _lsjfmx[i].YSAmount = YSAmount.ToString();
+
+                    float Qty = Convert.ToSingle(_lsjfmx[i].Qty);
+                    _lsjfmx[i].Qty = Qty.ToString();
                 }
-                SFJE = _zdmx.Sum(m => decimal.Parse(m.Amount)).ToString();
-                WYJ = _zdmx.Sum(m => decimal.Parse(m.WYJ)).ToString();
+                return View(_lsjfmx);
             }
-            catch (Exception)
-            {
-                statusCode = "300";
-            }
-            return Json(new
-            {
-                statusCode = statusCode,
-                sfje = SFJE,
-                wyj = WYJ
-            }, JsonRequestBehavior.AllowGet);
+            return Redirect("/Pay/ReadJFMXByOpenID");
         }
+
+        /// <summary>
+        /// 根据退费单TaskID获取退费明细
+        /// </summary>
+        /// <param name="PayType"></param>
+        /// <param name="TaskID"></param>
+        /// <returns></returns>
+        [OAuth(Redirect = "Pay/ReadRefundMXByTaskID", Type = "snsapi_base")]
+        public ActionResult ReadRefundMXByTaskID(string TaskID)
+        {
+            List<RefundMX> _lsjfmx = CopPaymentMXSvr.GetRefundMXByTaskID(TaskID);
+            if (_lsjfmx != null && _lsjfmx.Count > 0)
+            {
+                for (int i = 0; i < _lsjfmx.Count; i++)
+                {
+                    float SSAmount = Convert.ToSingle(_lsjfmx[i].SSAmount);
+                    _lsjfmx[i].SSAmount = SSAmount.ToString();
+
+                    float RefundAmount = Convert.ToSingle(_lsjfmx[i].RefundAmount);
+                    _lsjfmx[i].RefundAmount = RefundAmount.ToString();
+
+                    float Qty = Convert.ToSingle(_lsjfmx[i].Qty);
+                    _lsjfmx[i].Qty = Qty.ToString();
+                }
+                return View(_lsjfmx);
+            }
+            return Redirect("/Pay/ReadJFMXByOpenID");
+        }
+
     }
 }

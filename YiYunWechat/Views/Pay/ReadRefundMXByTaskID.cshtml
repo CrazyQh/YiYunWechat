@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+@using YiYun.Entity
+
+@model List<RefundMX>
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>本次退费明细</title>
+    <script src="~/Scripts/jquery-2.1.1.js"></script>
+    <link href="~/Content/jqweui/weui.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/jqweui/jquery-weui.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script src="~/Scripts/jqweui/jquery-weui.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.validate.js" type="text/javascript"></script>
+    <script src="~/Scripts/MyWechat.validate.js"></script>
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js" type="text/javascript" charset="utf-8"></script>
+    <!--引入微信的两个js-->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <!--weui.min.js有版本之分，在低版本的js中有些功能不完善，在高版本会支持-->
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="~/Scripts/jqweui/jquery-weui.js"></script>
+</head>
+<body>
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__hd" style="font-size:12px">本次退费明细</div>
+    </div>
+    <div class="weui-row" style="font-size:12px">
+        <div class="weui-col-20">计费周期</div>
+        <div class="weui-col-25">费用名称</div>
+        <div class="weui-col-15">数量</div>
+        <div class="weui-col-20">实收金额</div>
+        <div class="weui-col-20">实际退费</div>
+    </div>
+    <ul>
+        @foreach (var i in Model)
+        {
+            <li>
+
+                <div class="weui-row" style="font-size:12px">
+                    <div class="weui-col-20" style="color:red">@i.YearMonth</div>
+                    <div class="weui-col-25">@i.ProjectName</div>
+                    <div class="weui-col-15">@i.Qty</div>
+                    <div class="weui-col-20">@i.SSAmount</div>
+                    <div class="weui-col-20">@i.RefundAmount</div>
+                </div>
+            </li>
+        }
+    </ul>
+</body>
+</html>

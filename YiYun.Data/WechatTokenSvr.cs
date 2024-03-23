@@ -65,6 +65,10 @@ namespace YiYun.Data
             {
                 ir = SqlHelper.ExecuteNonQuery(_trans, CommandType.Text, sql, paras);
             }
+            else
+            {
+                ir = SqlHelper.ExecuteNonQuery(SqlHelper.CONN_STRING, CommandType.Text, sql, paras);
+            }
             return ir;
         }
 
@@ -89,6 +93,10 @@ namespace YiYun.Data
             if (_trans != null)
             {
                 ir = SqlHelper.ExecuteNonQuery(_trans, CommandType.Text, sql, paras);
+            }
+            else
+            {
+                ir = SqlHelper.ExecuteNonQuery(SqlHelper.CONN_STRING, CommandType.Text, sql, paras);
             }
             return ir;
         }

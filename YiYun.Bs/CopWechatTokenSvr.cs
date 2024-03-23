@@ -77,16 +77,18 @@ namespace YiYun.Bs
                             trans.Commit();
                             return _token.Token;
                         }
-                        catch (Exception)
+                        catch (Exception e)
                         {
+                            LogWrite.WriteLog(e.Message);
                             trans.Rollback();
                             return null;
                         }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                LogWrite.WriteLog(e.Message);
                 return null;
             }
         }

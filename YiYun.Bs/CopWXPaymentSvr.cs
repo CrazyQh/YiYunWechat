@@ -1,13 +1,8 @@
 ﻿using Common;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using YiYun.Data;
-using YiYun.Entity;
 
 namespace YiYun.Bs
 {
@@ -34,8 +29,8 @@ namespace YiYun.Bs
                         try
                         {
                             WXPaymentSvr _PaySvr = new WXPaymentSvr(null, trans);
-                            WXPayment _pay = _PaySvr.GetWXPaymentBySN(_sbsn);
-                            if (_pay == null)
+                            int _pay = _PaySvr.GetWXPaymentBySN(_sbsn);
+                            if (_pay == 0)
                             {
                                 _resms = "已经支付";
                                 trans.Rollback();

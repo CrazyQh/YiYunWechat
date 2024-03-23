@@ -23,6 +23,11 @@ namespace YiYun.Data
         }
         #endregion
 
+        /// <summary>
+        /// 根据OpenID获取小区
+        /// </summary>
+        /// <param name="_OpenID"></param>
+        /// <returns></returns>
         public List<Village> GetVillageByOpenID(string _OpenID)
         {
             string sql = @" 
@@ -79,6 +84,10 @@ namespace YiYun.Data
             }
         }
 
+        /// <summary>
+        /// 全部未关闭的小区
+        /// </summary>
+        /// <returns></returns>
         public List<Village> GetVillage()
         {
             string sql = @" 
@@ -125,6 +134,11 @@ namespace YiYun.Data
             }
         }
 
+        /// <summary>
+        /// 根据小区ID获取小区信息
+        /// </summary>
+        /// <param name="_VillageID"></param>
+        /// <returns></returns>
         public Village GetVillageByID(string _VillageID)
         {
             string sql = @" 

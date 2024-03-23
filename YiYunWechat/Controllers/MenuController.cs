@@ -1,4 +1,5 @@
-﻿using Senparc.Weixin.MP.CommonAPIs;
+﻿using Common;
+using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities.Menu;
 using System.Web.Mvc;
 using YiYun.Bs;
@@ -12,7 +13,7 @@ namespace YiYunWechat.Controllers
         /// 创建菜单
         /// </summary>
         /// <returns></returns>
-        public ActionResult Create()
+        public string Create()
         {
             ButtonGroup bg = new ButtonGroup();
 
@@ -77,9 +78,10 @@ namespace YiYunWechat.Controllers
             bg.button.Add(subbutton3);
 
             string accesstoken = CopWechatTokenSvr.GetToken(ConfigManager.APPIdS,ConfigManager.AppsecretS);
+
             var results = CommonApi.CreateMenu(accesstoken,bg);
 
-            return Json(results, JsonRequestBehavior.AllowGet);
+            return results.ToString();
         }
     }
 }

@@ -6,6 +6,7 @@ namespace YiYun.Entity
     public class ZDMX
     {
         private string _SoID;
+        private string _SoTaskID;
         private string _YearMonth;
         private string _SFProjectName;
         private string _JSTypeT;
@@ -19,6 +20,13 @@ namespace YiYun.Entity
         {
             get { return _SoID; }
             set { _SoID = value; }
+        }
+
+        [DataMember]
+        public string SoTaskID
+        {
+            get { return _SoTaskID; }
+            set { _SoTaskID = value; }
         }
 
         [DataMember]
