@@ -23,6 +23,12 @@ namespace YiYun.Bs
             return taskSvr.UpdateMessageTask(_ID);
         }
 
+        public static int UpdateMessageTaskError(string _ID, string _ErrMsg)
+        {
+            WechatMessageTaskSvr taskSvr = new WechatMessageTaskSvr();
+            return taskSvr.UpdateMessageTaskError(_ID,_ErrMsg);
+        }
+
         /// <summary>
         /// 账单生成消息推送
         /// </summary>
@@ -63,6 +69,10 @@ namespace YiYun.Bs
                 if (mcb != null && mcb.errcode == "0")
                 {
                     UpdateMessageTask(_tasks[i].ID);
+                }
+                else
+                {
+                    UpdateMessageTaskError(_tasks[i].ID, mcb.errmsg);
                 }
             }
             return "1";
@@ -109,6 +119,10 @@ namespace YiYun.Bs
                 {
                     UpdateMessageTask(_tasks[i].ID);
                 }
+                else
+                {
+                    UpdateMessageTaskError(_tasks[i].ID, mcb.errmsg);
+                }
             }
             return "1";
         }
@@ -151,6 +165,57 @@ namespace YiYun.Bs
                 if (mcb != null && mcb.errcode == "0")
                 {
                     UpdateMessageTask(_tasks[i].ID);
+                }
+                else
+                {
+                    UpdateMessageTaskError(_tasks[i].ID, mcb.errmsg);
+                }
+            }
+            return "1";
+        }
+
+        /// <summary>
+        /// 逾期账单催缴
+        /// </summary>
+        /// <param name="_tasks"></param>
+        /// <returns></returns>
+        public static string CJ(List<WechatMessageTask> _tasks)
+        {
+
+            //获取token
+            string access_token = CopWechatTokenSvr.GetToken(ConfigManager.APPIdS, ConfigManager.AppsecretS);
+
+            //根据TaskID找到当前拥有人对应的openid
+            for (int i = 0; i < _tasks.Count; i++)
+            {
+                SendMessage sm = new SendMessage();
+                sm.touser = _tasks[i].OpenID;
+
+                sm.url = ConfigManager.WebSiteUrl + "Bill/ReadZDMXByHouseID?HouseID=" + _tasks[i].HouseID;
+                sm.template_id = _tasks[i].TemplateID;
+                MessageParameters[] paras = new MessageParameters[]
+                {
+                    new MessageParameters(){value= _tasks[i].Params1 },
+                    new MessageParameters(){value= _tasks[i].Params2 },
+                    new MessageParameters(){value= _tasks[i].Params3 }
+                };
+                SendMessageData data = new SendMessageData()
+                {
+                    thing11 = paras[0],
+                    amount16 = paras[1],
+                    short_thing5 = paras[2]
+                };
+                sm.data = data;
+                string message = string.Empty;
+                string content = JsonHelper.GetJson<SendMessage>(sm);
+                MessageCallback mcb = CommonApi.SendMessage(access_token, content, out message);
+                if (mcb != null && mcb.errcode == "0")
+                {
+                    UpdateMessageTask(_tasks[i].ID);
+                }
+                else
+                {
+                    UpdateMessageTaskError(_tasks[i].ID, mcb.errmsg);
                 }
             }
             return "1";

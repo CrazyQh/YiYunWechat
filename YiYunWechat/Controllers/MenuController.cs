@@ -27,7 +27,7 @@ namespace YiYunWechat.Controllers
             button12.name = "小区公告";
 
             var button13 = new SingleViewButton();
-            button13.url = ConfigManager.WebSiteUrl + "Pay/ReadZDMXByOpenID";
+            button13.url = ConfigManager.WebSiteUrl + "Bill/ReadZDMXByOpenID";
             button13.name = "账单查询";
 
             var button14 = new SingleViewButton();

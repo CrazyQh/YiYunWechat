@@ -37,6 +37,7 @@ namespace YiYun.Data
                        CreateAt
                 FROM dbo.V_PMC_YJFMX
                 WHERE HouseID = @HouseID
+                ORDER BY CreateAt DESC
             ";
             SqlParameter[] paras = new SqlParameter[]
             {

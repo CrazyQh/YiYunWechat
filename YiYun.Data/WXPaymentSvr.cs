@@ -65,7 +65,7 @@ namespace YiYun.Data
         /// <returns></returns>
         public int GetWXPaymentBySN(string _SBSN)
         {
-            string sql = " SELECT COUNT(*) Qty FROM PMC_WXPayment WHERE JFFlag = 0 AND SN = '" + _SBSN + "'";
+            string sql = " SELECT ID FROM PMC_WXPayment WHERE JFFlag = 0 AND SN = '" + _SBSN + "'";
             DataSet ds = new DataSet();
             if (_trans != null)
             {
@@ -82,7 +82,7 @@ namespace YiYun.Data
             }
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                return (int)ds.Tables[0].Rows[0]["Qty"];
+                return (int)ds.Tables[0].Rows[0]["ID"];
             }
             else
             {
@@ -103,15 +103,48 @@ namespace YiYun.Data
             int ir = 0;
             if (_conn != null)
             {
-                ir = SqlHelper.ExecuteNonQuery(_conn, CommandType.StoredProcedure, sql);
+                ir = SqlHelper.ExecuteNonQuery(_conn, CommandType.Text, sql);
             }
             if (_trans != null)
             {
-                ir = SqlHelper.ExecuteNonQuery(_trans, CommandType.StoredProcedure, sql);
+                ir = SqlHelper.ExecuteNonQuery(_trans, CommandType.Text, sql);
             }
             else
             {
-                ir = SqlHelper.ExecuteNonQuery(SqlHelper.CONN_STRING, CommandType.StoredProcedure, sql);
+                ir = SqlHelper.ExecuteNonQuery(SqlHelper.CONN_STRING, CommandType.Text, sql);
+            }
+            return ir;
+        }
+
+        /// <summary>
+        /// 发送支付成功消息
+        /// </summary>
+        /// <param name="_SoID"></param>
+        /// <returns></returns>
+        public int InsertWXPayMessage(int _SoID)
+        {
+            string sql = "P_PMC_InsertMessageTask";
+            SqlParameter[] paras = new SqlParameter[4];
+            paras[0] = new SqlParameter("MessageType", "WXJF");
+            paras[1] = new SqlParameter("SoTaskID", _SoID);
+            paras[2] = new SqlParameter("HouseID", "");
+            paras[3] = new SqlParameter("Account", "");
+            paras[0].Direction = ParameterDirection.Input;
+            paras[1].Direction = ParameterDirection.Input;
+            paras[2].Direction = ParameterDirection.Input;
+            paras[3].Direction = ParameterDirection.Input;
+            int ir = 0;
+            if (_conn != null)
+            {
+                ir = SqlHelper.ExecuteNonQuery(_conn, CommandType.StoredProcedure, sql, paras);
+            }
+            if (_trans != null)
+            {
+                ir = SqlHelper.ExecuteNonQuery(_trans, CommandType.StoredProcedure, sql, paras);
+            }
+            else
+            {
+                ir = SqlHelper.ExecuteNonQuery(SqlHelper.CONN_STRING, CommandType.StoredProcedure, sql, paras);
             }
             return ir;
         }

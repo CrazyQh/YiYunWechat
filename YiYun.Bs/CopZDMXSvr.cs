@@ -78,7 +78,7 @@ namespace YiYun.Bs
                             _dic.Add("access_token", _villageinfo.PayToken);
                             _dic.Add("key_sign", Security.MD5Encrypt(UrlHelper.GetUrlForDictionary(_dic)));
                             _dic.Add("sub_appid", "");
-                            _dic.Add("open_id", ConfigManager.OpenId);
+                            _dic.Add("open_id", openid);
                             _dic.Add("order_body", "物业费");
                             _dic.Add("notify_url", ConfigManager.WebSiteUrl + "Pay/CallBackWY");
                             _dic.Add("attach", _villageinfo.VillageName + "-" + _card.HouseCode);

@@ -73,17 +73,17 @@ namespace LBDC.WeChat.MessageHandlers
             //defaultResponseMessage.Content = "你发送的消息：" + requestMessage.Content;
             if (requestMessage.Content.IndexOf("缴费") >= 0)
             {
-                defaultResponseMessage.Content = "点击查看账单" + "http://mall.sanzhonginfo.cn/Report/ReadZDMXByOPENID";
+                defaultResponseMessage.Content = "点击查看账单" + ConfigManager.WebSiteUrl + "Bill/ReadZDMXByOpenID";
                 return defaultResponseMessage;
             }
             if (requestMessage.Content.IndexOf("账单") >= 0)
             {
-                defaultResponseMessage.Content = "点击查看账单" + "http://mall.sanzhonginfo.cn/Report/ReadZDMXByOPENID";
+                defaultResponseMessage.Content = "点击查看账单" + ConfigManager.WebSiteUrl + "Bill/ReadZDMXByOpenID";
                 return defaultResponseMessage;
             }
             if (requestMessage.Content.IndexOf("绑定") >= 0)
             {
-                defaultResponseMessage.Content = "点击绑定住宅" + "http://mall.sanzhonginfo.cn/Member/HouseAccount";
+                defaultResponseMessage.Content = "点击绑定住宅" + ConfigManager.WebSiteUrl + "Owner/OwnerRegister";
                 return defaultResponseMessage;
             }
             else

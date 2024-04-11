@@ -29,17 +29,26 @@ namespace YiYun.Bs
                         try
                         {
                             WXPaymentSvr _PaySvr = new WXPaymentSvr(null, trans);
-                            int _pay = _PaySvr.GetWXPaymentBySN(_sbsn);
-                            if (_pay == 0)
-                            {
-                                _resms = "已经支付";
-                                trans.Rollback();
-                                return -1;
-                            }
+                            int _payID = _PaySvr.GetWXPaymentBySN(_sbsn);
+                            //if (_payID == 0)
+                            //{
+                            //    _resms = "已经支付";
+                            //    trans.Rollback();
+                            //    return -1;
+                            //}
 
                             #region 更新支付标识
                             //处理支付
                             ir = _PaySvr.UpdateWXPaymentJFFlag(_sbsn);
+                            if (ir <= 0)
+                            {
+                                trans.Rollback();
+                                return ir;
+                            }
+                            #endregion
+
+                            #region 发送支付成功消息
+                            ir = _PaySvr.InsertWXPayMessage(_payID);
                             if (ir <= 0)
                             {
                                 trans.Rollback();

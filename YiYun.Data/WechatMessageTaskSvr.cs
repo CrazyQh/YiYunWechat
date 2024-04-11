@@ -68,7 +68,26 @@ namespace YiYun.Data
 
         public int UpdateMessageTask(string _ID)
         {
-            string sql = " UPDATE dbo.PMC_WechatMessageTask SET SendState = 1 WHERE ID = '" + _ID + "' ";
+            string sql = " UPDATE dbo.PMC_WechatMessageTask SET SendState = 1,SendAt = GETDATE() WHERE ID = '" + _ID + "' ";
+            int ir = 0;
+            if (_conn != null)
+            {
+                ir = SqlHelper.ExecuteNonQuery(_conn, CommandType.Text, sql);
+            }
+            if (_trans != null)
+            {
+                ir = SqlHelper.ExecuteNonQuery(_trans, CommandType.Text, sql);
+            }
+            else
+            {
+                ir = SqlHelper.ExecuteNonQuery(SqlHelper.CONN_STRING, CommandType.Text, sql);
+            }
+            return ir;
+        }
+
+        public int UpdateMessageTaskError(string _ID,string _ErrMsg)
+        {
+            string sql = " UPDATE dbo.PMC_WechatMessageTask SET SendState = 0,,SendAt = GETDATE(), ErrMsg = '" + _ErrMsg + "' WHERE ID = '" + _ID + "' ";
             int ir = 0;
             if (_conn != null)
             {
