@@ -19,7 +19,7 @@ namespace YiYunWechat
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //定时器///
+            //定时器
             System.Timers.Timer aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new System.Timers.ElapsedEventHandler(aTimer_Elapsed);
             //设置引发时间的时间间隔 此处设置为１秒
