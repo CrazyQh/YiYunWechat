@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AliAuth.cs" />
+    <Compile Include="AliHelper.cs" />
     <Compile Include="ConfigManager.cs" />
     <Compile Include="ConstKey.cs" />
     <Compile Include="OAuth.cs" />

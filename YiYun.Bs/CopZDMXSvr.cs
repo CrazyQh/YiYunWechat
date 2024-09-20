@@ -60,15 +60,14 @@ namespace YiYun.Bs
                             WXPaymentSvr _paymentSvr = new WXPaymentSvr(null, trans);
                             House _card = CopHouseSvr.GetHouseByID(_HouseID);
                             Village _villageinfo = CopVillageSvr.GetVillageByID(_card.VillageID);
-                            string openid = ConfigManager.OpenId;
-                            //openid = "o2HLA01_z9ni033uCYFJ1DFbnxtc";
+                            string openid = ConfigManager.AliOpenID;
 
                             #region 调用扫呗
                             string ddd = (decimal.Parse(_ysje) * 100).ToString();
                             ddd = ddd.Replace(".00", "");
                             Dictionary<string, string> _dic = new Dictionary<string, string>();
                             _dic.Add("pay_ver", "100");
-                            _dic.Add("pay_type", "010");
+                            _dic.Add("pay_type", "020");
                             _dic.Add("service_id", "012");
                             _dic.Add("merchant_no", _villageinfo.MerchantID);
                             _dic.Add("terminal_id", _villageinfo.TerminalNumber);

@@ -135,5 +135,26 @@ namespace YiYunWeChat.Auth
             get { return CookieHelper.ReadCookieDecrpyt(ConstKey.SESSION_USERINFO); }
             set { CookieHelper.WriteCookieEncrypt(ConstKey.SESSION_USERINFO, value); }
         }
+
+        public static string AliAppID
+        {
+            get { return AppSettings.Get("AliAppID"); }
+        }
+
+        public static string AliprivateKey
+        {
+            get { return AppSettings.Get("AliprivateKey"); }
+        }
+
+        public static string alipayPublicKey
+        {
+            get { return AppSettings.Get("alipayPublicKey"); }
+        }
+
+        public static string AliOpenID
+        {
+            get { return CookieHelper.ReadCookieDecrpyt(ConstKey.ALI_OPENID); }
+            set { CookieHelper.WriteCookieEncrypt(ConstKey.ALI_OPENID, value); }
+        }
     }
 }

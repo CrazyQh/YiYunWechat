@@ -25,5 +25,9 @@ namespace YiYunWeChat.Auth
         /// </summary>
         public const string SESSION_OPENID = "SESSION_OPENID";
         public const string SESSION_USERINFO = "SESSION_USERINFO";
+
+
+
+        public const string ALI_OPENID = "ALI_OPENID";
     }
 }

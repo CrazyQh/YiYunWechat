@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AlipaySDKNet, Version=1.0.8852.26351, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AlipaySDKNet.4.9.78\lib\net35\AlipaySDKNet.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.NetFramework.1.8.5.2\lib\net20\BouncyCastle.dll</HintPath>
+    </Reference>
     <Reference Include="Common">
       <HintPath>..\Common\bin\Debug\Common.dll</HintPath>
     </Reference>
@@ -123,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AliController.cs" />
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -351,6 +358,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Ali\" />
     <Folder Include="Views\Menu\" />
     <Folder Include="Views\Template\" />
     <Folder Include="Views\WeChatOAuth\" />

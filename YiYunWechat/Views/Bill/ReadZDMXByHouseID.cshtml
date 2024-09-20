@@ -26,7 +26,7 @@
 </head>
 <body>
     <div class="weui-panel weui-panel_access">
-        <div class="weui-panel__hd" style="font-size:12px">账单明细</div>
+        <div class="weui-panel__hd" style="font-size:12px">账单明细 @ViewBag.OpenID</div>
     </div>
     <div id="btn">
         <input type="checkbox" style="font-size:12px" id="checkall" checked="checked" onclick="checkall(this)">全选
@@ -91,6 +91,7 @@
     {
         <div class="weui-form-preview__ft">
             <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:fun_register.onSubmit()">立即付款</a>
+            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:fun_register.onSubmitAli()">立即付款Ali</a>
         </div>
     }
     <script>
@@ -161,19 +162,52 @@
                     $.ajax({
                             url: "@Url.Action("WYPay", "Pay")",
                             type: 'post',
-                        dataType: "json",
-                        data: { HouseID: @ViewBag.HouseID, SoID: SoID.toString() },
+                            dataType: "json",
+                            data: { HouseID: @ViewBag.HouseID, SoID: SoID.toString() },
                             success: function (result) {
                             $.hideLoading();
-                                if (result.statusCode == "200") {
-                                    var request = JSON.parse(result.Request);
-                                    appid = request.appId;
-                                    nonceStr = request.nonceStr;
-                                    package = request.package_str;
-                                    paySign = request.paySign;
-                                    timeStamp = request.timeStamp;
-                                    callpay()
-                                }
+                            if (result.statusCode == "200") {
+                                var request = JSON.parse(result.Request);
+                                appid = request.appId;
+                                nonceStr = request.nonceStr;
+                                package = request.package_str;
+                                paySign = request.paySign;
+                                timeStamp = request.timeStamp;
+                                callpay()
+                            }
+                    if (result.statusCode == "300") {
+                        $.toast(result.message, "forbidden");
+                    }
+                }
+            });
+                },
+                onCancel: function () {
+                }
+            });
+            },
+
+        onSubmitAli: function () {
+                var CheckBox = $(".SoID:checked");
+                var SoID = [];
+                for (var i = 0; i < CheckBox.length; i++) {
+                    SoID.push(CheckBox[i].value);
+                }
+            $.confirm({
+                title: '确认结算？',
+                text: '您确定要付款吗？',
+                onOK: function () {
+                    $.showLoading("请稍后");
+                    $.ajax({
+                            url: "@Url.Action("WYPay", "Pay")",
+                            type: 'post',
+                            dataType: "json",
+                            data: { HouseID: @ViewBag.HouseID, SoID: SoID.toString() },
+                            success: function (result) {
+                            $.hideLoading();
+                            if (result.statusCode == "200") {
+                                var request = JSON.parse(result.Request);
+                                tradePay(request.ali_trade_no);
+                            }
                     if (result.statusCode == "300") {
                         $.toast(result.message, "forbidden");
                     }
@@ -184,6 +218,8 @@
                 }
             });
         }
+
+
         }
 
         function onBridgeReady()
@@ -228,6 +264,28 @@
         function back() {
             //window.location.href = "/Orderfood/Index";
             window.history.go(-1);
+        }
+
+        function ready(callback) {
+            if (window.AlipayJSBridge) {
+                callback && callback();
+            } else {
+                document.addEventListener('AlipayJSBridgeReady', callback, false);
+            }
+        }
+
+        function tradePay(tradeNO) {
+            ready(function () {
+                // 通过传入交易号唤起快捷调用方式(注意tradeNO大小写严格)
+                AlipayJSBridge.call("tradePay", {
+                    tradeNO: tradeNO
+                }, function (data) {
+                    log(JSON.stringify(data));
+                    if ("9000" == data.resultCode) {
+                        console.log('支付成功');
+                    }
+                });
+            });
         }
     </script>
 </body>

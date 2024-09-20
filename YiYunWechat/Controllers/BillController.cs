@@ -17,6 +17,7 @@ namespace YiYunWechat.Controllers
             List<ZDMX> _lszdmx = CopZDMXSvr.GetZDMXByHousID(HouseID);
             House _card = CopHouseSvr.GetHouseByID(HouseID);
             ViewBag.HouseID = HouseID;
+            ViewBag.OpenID = ConfigManager.AliOpenID;
             if (_card != null)
             {
                 ViewBag.PayFlag = _card.OnlinePay;
@@ -48,7 +49,7 @@ namespace YiYunWechat.Controllers
         [OAuth(Redirect = "Bill/ReadZDMXByOpenID", Type = "snsapi_base")]
         public ActionResult ReadZDMXByOpenID()
         {
-            string OpenID = ConfigManager.OpenId;
+            string OpenID = ConfigManager.AliOpenID;
             List<House> _housemx = CopHouseSvr.GetHouseByOpenID(OpenID);
             if (_housemx != null && _housemx.Count == 1)
             {
